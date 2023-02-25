@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Sep 17 19:24:24 2021
+
+@author: manero
+"""
+import yaml
+import math
+import sys
+import json
+import argparse
+from typing import List
+from sklearn.metrics import accuracy_score, auc
+
+
+input_file = 'train_debiased.jsonl'
+
+i=0
+lines = []
+with open(input_file, "rb") as f:
+   for l in f:
+      lines.append(l.decode().strip())
+      res = json.loads(l)
+      good_response = res["answer"]
+      print (i, "- " + res['sentence'])
+      if good_response == '1':
+          print ("--" + res['option1']+' <<<<<<<')
+      else:
+          print ("--" + res['option1'])
+      if good_response == '2':
+          print ("--" + res['option2']+' <<<<<<<')
+      else:
+          print ("--" + res['option2'])
+      i = i +1
